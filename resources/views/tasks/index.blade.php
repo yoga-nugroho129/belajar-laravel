@@ -124,6 +124,14 @@
                         </button>
                     </form>
                 @endif
+                <form action="/tasks/{{ $task->id }}" method="POST" style="margin-bottom: 0">
+                    @csrf
+                    @method('DELETE')
+
+                    <button type="submit" style="background-color: crimson">
+                        Delete
+                    </button>
+                </form>
             </div>
         @endforeach
 
