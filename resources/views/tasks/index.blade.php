@@ -1,84 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Todo List</title>
+        <title>Todo List</title>
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                max-width: 800px;
+                margin: 40px auto;
+                padding: 0 20px;
+            }
 
-        h1 {
-            margin-bottom: 30px;
-        }
+            h1 {
+                margin-bottom: 30px;
+            }
 
-        .task {
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 16px;
-            margin-bottom: 12px;
-        }
+            form {
+                margin-bottom: 40px;
+            }
 
-        .task-title {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
+            input,
+            textarea {
+                width: 100%;
+                padding: 10px;
+                margin-bottom: 12px;
+                box-sizing: border-box;
+            }
 
-        .task-description {
-            color: #666;
-            margin-bottom: 10px;
-        }
+            button {
+                padding: 10px 20px;
+                cursor: pointer;
+            }
 
-        .completed {
-            color: green;
-        }
+            .task {
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                padding: 16px;
+                margin-bottom: 12px;
+            }
 
-        .pending {
-            color: orange;
-        }
-    </style>
-</head>
+            .task-title {
+                font-size: 18px;
+                font-weight: bold;
+                margin-bottom: 8px;
+            }
 
-<body>
+            .task-description {
+                color: #666;
+                margin-bottom: 10px;
+            }
 
-    <h1>Todo List</h1>
+            .completed {
+                color: green;
+            }
 
-    @foreach ($tasks as $task)
+            .pending {
+                color: orange;
+            }
+        </style>
+    </head>
 
-        <div class="task">
-
-            <div class="task-title">
-                {{ $task->title }}
+    <body>
+        <h1>Todo List</h1>
+        <h2>Add New Task</h2>
+        <form action="/tasks" method="POST">
+            @csrf
+            <div>
+                <label for="title">Title</label>
+                <input
+                    type="text"
+                    id="title"
+                    name="title"
+                    placeholder="Enter task title"
+                >
             </div>
 
-            <div class="task-description">
-                {{ $task->description }}
+            <div>
+                <label for="description">Description</label>
+                <textarea
+                    id="description"
+                    name="description"
+                    placeholder="Enter task description"
+                    rows="4"
+                ></textarea>
             </div>
 
-            @if ($task->is_completed)
+            <button type="submit">
+                Add Task
+            </button>
+        </form>
 
-                <div class="completed">
-                    ✓ Completed
+        <hr>
+
+        <h2>Tasks</h2>
+        @foreach ($tasks as $task)
+            <div class="task">
+                <div class="task-title">
+                    {{ $task->title }}
                 </div>
-
-            @else
-
-                <div class="pending">
-                    ○ Not completed
+                <div class="task-description">
+                    {{ $task->description }}
                 </div>
+                @if ($task->is_completed)
+                    <div class="completed">
+                        ✓ Completed
+                    </div>
+                @else
+                    <div class="pending">
+                        ○ Not completed
+                    </div>
+                @endif
+            </div>
+        @endforeach
 
-            @endif
-
-        </div>
-
-    @endforeach
-
-</body>
+    </body>
 </html>

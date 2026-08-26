@@ -12,4 +12,15 @@ class TaskController extends Controller
         $tasks = Task::all();
         return view('tasks.index', ['tasks' => $tasks]);
     }
+
+    public function store(Request $request)
+    {
+        Task::create([
+            'title'=> $request->title,
+            'description'=> $request->description,
+            'is_completed'=> false,
+        ]);
+
+        return redirect('/tasks');
+    }
 }
