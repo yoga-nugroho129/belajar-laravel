@@ -23,4 +23,13 @@ class TaskController extends Controller
 
         return redirect('/tasks');
     }
+
+    public function update(Task $task)
+    {
+        $task->update([
+            'is_completed' => true,
+        ]);
+
+        return redirect('/tasks');
+    }
 }

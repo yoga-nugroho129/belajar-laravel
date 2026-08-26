@@ -33,6 +33,9 @@
             button {
                 padding: 10px 20px;
                 cursor: pointer;
+                background-color: teal;
+                color: aliceblue;
+                border-radius: 10px;
             }
 
             .task {
@@ -112,6 +115,14 @@
                     <div class="pending">
                         ○ Not completed
                     </div>
+                    <form action="/tasks/{{ $task->id }}" method="POST" style="margin-bottom: 0">
+                        @csrf
+                        @method('PATCH')
+
+                        <button type="submit">
+                            Mark as Completed
+                        </button>
+                    </form>
                 @endif
             </div>
         @endforeach
