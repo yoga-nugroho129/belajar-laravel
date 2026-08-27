@@ -49,6 +49,10 @@ class AuthController extends Controller
 
             return redirect('/tasks');
         }
+
+        return back()->withErrors([
+            'password' => 'Email atau password salah.',
+        ])->onlyInput('password');
     }
 
     public function logout(Request $request) {
