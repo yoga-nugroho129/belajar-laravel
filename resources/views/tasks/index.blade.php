@@ -67,7 +67,12 @@
     </head>
 
     <body>
-        <h1>Todo List</h1>
+        <div style="display: flex; justify-content: space-between; ">
+            <h1>Todo List</h1>
+            <form action="/logout" method="POST">
+                <button type="submit" style="background-color: crimson">Logout</button>
+            </form>
+        </div>
         <h2>Add New Task</h2>
         <form action="/tasks" method="POST">
             @csrf
