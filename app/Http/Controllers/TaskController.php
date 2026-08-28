@@ -4,21 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Models\Task;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class TaskController extends Controller
 {
     public function index()
     {
-        $tasks = Task::all();
+        $tasks = auth()->user()->tasks;
+
         return view('tasks.index', ['tasks' => $tasks]);
     }
 
     public function store(Request $request)
     {
-        Task::create([
-            'title'=> $request->title,
-            'description'=> $request->description,
-            'is_completed'=> false,
+        auth()->user()->tasks()->create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'is_completed' => false,
         ]);
 
         return redirect('/tasks');
@@ -26,6 +28,8 @@ class TaskController extends Controller
 
     public function update(Task $task)
     {
+        Gate::authorize('update', $task);
+
         $task->update([
             'is_completed' => true,
         ]);
@@ -35,6 +39,8 @@ class TaskController extends Controller
 
     public function destroy(Task $task)
     {
+        Gate::authorize('delete', $task);
+
         $task->delete();
 
         return redirect('/tasks');

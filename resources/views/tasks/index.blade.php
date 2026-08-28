@@ -68,7 +68,7 @@
 
     <body>
         <div style="display: flex; justify-content: space-between; ">
-            <h1>Todo List</h1>
+            <h1>{{auth()->user()->name}}'s Todo List</h1>
             <form action="/logout" method="POST">
                 <button type="submit" style="background-color: crimson">Logout</button>
             </form>
